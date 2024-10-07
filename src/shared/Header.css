@@ -1,0 +1,11 @@
+header {
+    border-bottom: 0.1px solid #e6e6e6;
+    min-width: 600px;
+
+    & h1 {
+        font-family: var(--header-font-family);
+        font-weight: 100;
+        font-size: 3rem;
+        margin: 2rem;
+    }
+}
