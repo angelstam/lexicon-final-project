@@ -1,10 +1,13 @@
 import { ReactNode } from "react";
 import "./Header.css";
 
-export default function Header() : ReactNode {
+export default function Header({ children }: { children?: ReactNode }): ReactNode {
 
-    return (
+  return (
     <header>
-        <h1>Gas Guzzlers</h1>
+      <h1>Gas Guzzlers</h1>
+      <nav>
+        {children}
+      </nav>
     </header>);
 }

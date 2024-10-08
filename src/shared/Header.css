@@ -1,11 +1,18 @@
 header {
     border-bottom: 0.1px solid #e6e6e6;
     min-width: 600px;
+    display: grid;
+    grid-template-columns: 1fr auto;
 
     & h1 {
         font-family: var(--header-font-family);
         font-weight: 100;
         font-size: 3rem;
         margin: 2rem;
+    }
+
+    & nav {
+        justify-self: end;
+        align-self: center;
     }
 }
