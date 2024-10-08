@@ -1,0 +1,14 @@
+{
+      "[typescript]": {
+            "editor.formatOnSave": true,
+            "editor.formatOnPaste": true,
+            "editor.tabSize": 2,
+            "editor.detectIndentation": false,
+      },
+      "[typescriptreact]": {
+            "editor.formatOnSave": true,
+            "editor.formatOnPaste": true,
+            "editor.tabSize": 2,
+            "editor.detectIndentation": false,
+      },
+}
