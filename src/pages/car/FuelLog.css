@@ -1,0 +1,5 @@
+.fuel-log {
+    & td:last-of-type {
+        text-align: right;
+    }
+}

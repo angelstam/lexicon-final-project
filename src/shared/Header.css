@@ -1,5 +1,5 @@
 header {
-    border-bottom: 0.1px solid #e6e6e6;
+    border-bottom: var(--border-thin-line);
     min-width: 600px;
     display: grid;
     grid-template-columns: 1fr auto;

@@ -5,6 +5,7 @@ import { Vehicle } from "../../shared/data/Vehicle";
 import { useParams } from "react-router-dom";
 import * as Vehicles from "../../shared/data/Vehicles";
 import "./CarDetail.css";
+import FuelLog from "./FuelLog";
 
 export default function CarDetail(): ReactNode {
   const [vehicle, setVehicle] = useState<Vehicle>();
@@ -27,6 +28,7 @@ export default function CarDetail(): ReactNode {
           <p>{vehicle?.fuelConsumption} l / 10 km</p>
         </section>
       </article>
+      <FuelLog vehicleId={vehicle?.id as string} />
     </>
   );
 }

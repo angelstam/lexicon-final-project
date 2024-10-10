@@ -5,6 +5,8 @@
   --header-font-family: "IBM Plex Sans", sans-serif;
   --main-text-color: black;
 
+  --border-thin-line: 0.1px solid #e6e6e6;
+
   --button-background-light-theme: #f9f9f9;
 
   font-family: var(--header-font-family);
@@ -61,7 +63,8 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-h2 > button {
+h2 > button,
+h3 > button {
   float: right;
   padding: 0.3em 0.6em;
 }
@@ -89,6 +92,19 @@ form {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  & th {
+    font-weight: 500;
+  }
+
+  & thead > tr {
+    border-bottom: var(--border-thin-line);
   }
 }
 
