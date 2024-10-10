@@ -1,0 +1,37 @@
+.car-list-item {
+    display: flex;
+    gap: 1rem;
+    color: inherit;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: var(--button-background-light-theme);
+    margin-bottom: 1rem;
+
+    &:hover {
+        color: inherit;
+        border: 1px solid silver;
+    }
+
+    & figure {
+        margin: 0;
+
+        & img {
+            display: block;
+            aspect-ratio: 1.61;
+            object-fit: cover;
+            height: 8rem;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+    }
+
+    & section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+
+        & h3 {
+            grid-column: 1 / span 2;
+        }
+    }
+}

@@ -3,6 +3,9 @@
 
 :root {
   --header-font-family: "IBM Plex Sans", sans-serif;
+  --main-text-color: black;
+
+  --button-background-light-theme: #f9f9f9;
 
   font-family: var(--header-font-family);
   line-height: 1.5;
@@ -98,7 +101,7 @@ form {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: var(--button-background-light-theme);
   }
 }
 
