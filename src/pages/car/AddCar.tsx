@@ -27,15 +27,15 @@ export default function AddCar(): ReactNode {
         <h2>Add Car</h2>
         <label>
           Make
-          <input type="text" name="make"></input>
+          <input type="text" name="make" required></input>
         </label>
         <label>
           Model
-          <input type="text" name="model"></input>
+          <input type="text" name="model" required></input>
         </label>
         <label>
           Photo
-          <input type="text" name="photo"></input>
+          <input type="text" name="photo" required></input>
         </label>
         <section>
           <button type="submit">Add car</button>
