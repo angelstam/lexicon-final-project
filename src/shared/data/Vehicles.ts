@@ -1,6 +1,44 @@
 import { Vehicle } from "./Vehicle";
 
 export function get(): Vehicle[] {
+  const vehicles = localStorage.getItem("vehicles");
+  if (vehicles !== null) {
+    return JSON.parse(vehicles);
+  } else {
+    const defaultVehicles = getDefaultVehicles();
+    store(defaultVehicles);
+    return defaultVehicles;
+  }
+}
+
+export function getById(id: string): Vehicle | undefined {
+  return get().find(vehicle => vehicle.id === id);
+}
+
+function store(vehicles: Vehicle[]) {
+  localStorage.setItem("vehicles", JSON.stringify(vehicles));
+}
+
+function getNextId(): string {
+  let nextId = localStorage.getItem("vehicle-last-id");
+
+  if (nextId === null) {
+    nextId = (get().length + 1).toString();
+    localStorage.setItem("vehicle-last-id", nextId);
+    return nextId;
+  }
+
+  nextId = (parseInt(nextId) + 1).toString();
+  localStorage.setItem("vehicle-last-id", nextId);
+  return nextId;
+}
+
+export function add(newVehicle: Vehicle) {
+  newVehicle.id = getNextId();
+  store([...get(), newVehicle]);
+}
+
+function getDefaultVehicles(): Vehicle[] {
   return [
     {
       id: "1",
@@ -19,8 +57,4 @@ export function get(): Vehicle[] {
       fuelConsumption: 1.0,
     },
   ]
-}
-
-export function getById(id: string): Vehicle | undefined {
-  return get().find(vehicle => vehicle.id === id);
 }

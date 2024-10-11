@@ -3,6 +3,6 @@ export interface Vehicle {
   make: string;
   model: string;
   photo: string;
-  odometer: number;
-  fuelConsumption: number;
+  odometer?: number;
+  fuelConsumption?: number;
 }
