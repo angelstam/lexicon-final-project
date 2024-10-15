@@ -1,6 +1,6 @@
 export interface VehicleRefueling {
-  id?: string;
-  carId: string;
+  id: string;
+  vehicleId: string;
   date: string;
   odometer: number;
   fuelType: string;
