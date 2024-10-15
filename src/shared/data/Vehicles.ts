@@ -38,6 +38,15 @@ export function add(newVehicle: Vehicle) {
   store([...get(), newVehicle]);
 }
 
+export function update(newVehicle: Vehicle) {
+  store(get().map<Vehicle>((vehicle: Vehicle) => {
+    if (vehicle.id === newVehicle.id) {
+      return newVehicle;
+    }
+    return vehicle;
+  }));
+}
+
 function getDefaultVehicles(): Vehicle[] {
   return [
     {
