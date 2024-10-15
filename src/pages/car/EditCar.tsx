@@ -28,11 +28,22 @@ export default function EditCar(): ReactNode {
     navigate(-1);
   }
 
+  function removeVehicle() {
+    Vehicles.remove(id as string);
+    navigate(-2);
+  }
+
   return (
     <>
       <Header><ReturnButton /></Header>
       <form name="newCar" onSubmit={updateVehicle}>
-        <h2>Edit Car</h2>
+        <h2>
+          <button title="Remove car" className="danger" onClick={removeVehicle} type="button">
+            <span className="material-symbols-outlined"> delete </span>
+            remove
+          </button>
+          Edit Car
+        </h2>
         <label>
           Make
           <input type="text" name="make" required defaultValue={vehicle?.make} />
