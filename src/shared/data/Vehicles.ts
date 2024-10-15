@@ -1,54 +1,27 @@
 import { Vehicle } from "./Vehicle";
+import * as LocalDB from "./LocalDB";
+
+const LOCAL_TABLE = "vehicles"
 
 export function get(): Vehicle[] {
-  const vehicles = localStorage.getItem("vehicles");
-  if (vehicles !== null) {
-    return JSON.parse(vehicles);
-  } else {
-    const defaultVehicles = getDefaultVehicles();
-    store(defaultVehicles);
-    return defaultVehicles;
-  }
+  return LocalDB.get<Vehicle>(LOCAL_TABLE, getDefaultVehicles);
 }
 
 export function getById(id: string): Vehicle | undefined {
   return get().find(vehicle => vehicle.id === id);
 }
 
-function store(vehicles: Vehicle[]) {
-  localStorage.setItem("vehicles", JSON.stringify(vehicles));
-}
-
-function getNextId(): string {
-  let nextId = localStorage.getItem("vehicle-last-id");
-
-  if (nextId === null) {
-    nextId = (get().length + 1).toString();
-    localStorage.setItem("vehicle-last-id", nextId);
-    return nextId;
-  }
-
-  nextId = (parseInt(nextId) + 1).toString();
-  localStorage.setItem("vehicle-last-id", nextId);
-  return nextId;
-}
-
 export function add(newVehicle: Vehicle) {
-  newVehicle.id = getNextId();
-  store([...get(), newVehicle]);
+  newVehicle.id = LocalDB.getNextId(LOCAL_TABLE, "vehicle-last-id");
+  LocalDB.store<Vehicle>(LOCAL_TABLE, [...get(), newVehicle]);
 }
 
 export function update(newVehicle: Vehicle) {
-  store(get().map<Vehicle>((vehicle: Vehicle) => {
-    if (vehicle.id === newVehicle.id) {
-      return newVehicle;
-    }
-    return vehicle;
-  }));
+  LocalDB.update(LOCAL_TABLE, newVehicle);
 }
 
 export function remove(id: string) {
-  store(get().filter(value => value.id !== id));
+  LocalDB.remove(LOCAL_TABLE, id);
 }
 
 function getDefaultVehicles(): Vehicle[] {

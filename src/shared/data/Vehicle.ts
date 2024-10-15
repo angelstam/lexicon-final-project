@@ -1,5 +1,5 @@
 export interface Vehicle {
-  id?: string;
+  id: string;
   make: string;
   model: string;
   photo: string;
