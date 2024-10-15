@@ -20,6 +20,7 @@ export default function AddCar(): ReactNode {
     Vehicles.add(newVehicle);
     navigate("/");
   }
+
   return (
     <>
       <Header><ReturnButton /></Header>

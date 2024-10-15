@@ -65,6 +65,8 @@ button:focus-visible {
 
 h2 > button,
 h3 > button {
+  display: flex;
+  justify-content: center;
   float: right;
   padding: 0.3em 0.6em;
 }
