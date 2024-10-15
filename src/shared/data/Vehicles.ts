@@ -47,6 +47,10 @@ export function update(newVehicle: Vehicle) {
   }));
 }
 
+export function remove(id: string) {
+  store(get().filter(value => value.id !== id));
+}
+
 function getDefaultVehicles(): Vehicle[] {
   return [
     {
