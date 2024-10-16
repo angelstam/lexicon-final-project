@@ -1,10 +1,14 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { VehicleRefueling } from "../../shared/data/VehicleRefueling";
+import * as VehicleRefuelings from "../../shared/data/VehicleRefuelings";
 import "./FuelLog.css";
 
 export default function FuelLog({ vehicleId }: { vehicleId: string }): ReactNode {
-  const [vehicleRefuelings, _] = useState<VehicleRefueling[]>([]);
-  console.log("vehicleId", vehicleId);
+  const [vehicleRefuelings, setVehicleRefuelings] = useState<VehicleRefueling[]>([]);
+
+  useEffect(() => {
+    setVehicleRefuelings(VehicleRefuelings.get(vehicleId));
+  }, []);
 
   return (
     <>

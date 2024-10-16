@@ -37,7 +37,7 @@ export default function CarDetail(): ReactNode {
           <p>{vehicle?.fuelConsumption} l / 10 km</p>
         </section>
       </article>
-      <FuelLog vehicleId={vehicle?.id as string} />
+      <FuelLog vehicleId={id as string} />
     </>
   );
 }

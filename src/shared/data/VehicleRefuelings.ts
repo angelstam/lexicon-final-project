@@ -4,7 +4,7 @@ import * as LocalDB from "./LocalDB";
 const LOCAL_TABLE = "vehicle-refuelings"
 
 export function get(vehicleId: string): VehicleRefueling[] {
-  return LocalDB.get<VehicleRefueling>(LOCAL_TABLE)
+  return LocalDB.get<VehicleRefueling>(LOCAL_TABLE, getDefaultVehicleRefuelings)
     .filter(refueling => refueling.vehicleId === vehicleId);
 }
 
@@ -28,4 +28,19 @@ export function update(newRefueling: VehicleRefueling) {
 
 export function remove(id: string) {
   LocalDB.remove(LOCAL_TABLE, id);
+}
+
+function getDefaultVehicleRefuelings(): VehicleRefueling[] {
+  return [
+    {
+      id: "1",
+      vehicleId: "1",
+      date: "2024-10-15",
+      fuelCost: 300,
+      fuelCostCurrency: "SEK",
+      fuelType: "E85",
+      fuelVolume: 15,
+      odometer: 200015,
+    }
+  ];
 }
