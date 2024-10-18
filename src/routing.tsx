@@ -4,6 +4,7 @@ import AddCar from "./pages/car/AddCar";
 import CarDetail from "./pages/car/CarDetail";
 import CarList from "./pages/car/CarList";
 import EditCar from "./pages/car/EditCar";
+import FuelLogForm from "./pages/car/FuelLogForm";
 
 export const routing = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<App />}>
@@ -11,6 +12,7 @@ export const routing = createBrowserRouter(createRoutesFromElements(
     <Route path="car/new" element={<AddCar />} />
     <Route path='car/:id' element={<CarDetail />} />
     <Route path='car/:id/edit' element={<EditCar />} />
+    <Route path='car/:id/fuel-log/:logId' element={<FuelLogForm />} />
     <Route path="*" element={<Navigate to='/' />} />
   </Route>
 ), import.meta.env.BASE_URL ? { basename: import.meta.env.BASE_URL } : undefined);

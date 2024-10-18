@@ -64,7 +64,8 @@ button:focus-visible {
 }
 
 h2 > button,
-h3 > button {
+h3 > button,
+td > button {
   display: flex;
   justify-content: center;
   float: right;
@@ -80,7 +81,7 @@ form {
     flex-direction: column;
     font-weight: 500;
 
-    & input {
+    & input, select {
       border-radius: 8px;
       border: 1px solid silver;
       padding: 0.6em 1.2em;
@@ -94,6 +95,12 @@ form {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+  }
+
+  & div.group {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
