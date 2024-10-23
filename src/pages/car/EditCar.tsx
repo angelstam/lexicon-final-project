@@ -36,31 +36,41 @@ export default function EditCar(): ReactNode {
   return (
     <>
       <Header><ReturnButton /></Header>
-      <form name="newCar" onSubmit={updateVehicle}>
+      {vehicle === undefined ?
         <h2>
-          <button title="Remove car" className="danger" onClick={removeVehicle} type="button">
-            <span className="material-symbols-outlined"> delete </span>
-            remove
+          <button title="Go to main" onClick={() => navigate(`/`)}>
+            <span className="material-symbols-outlined"> home </span>
+            Go to main
           </button>
-          Edit Car
+          Car not found!
         </h2>
-        <label>
-          Make
-          <input type="text" name="make" required defaultValue={vehicle?.make} />
-        </label>
-        <label>
-          Model
-          <input type="text" name="model" required defaultValue={vehicle?.model} />
-        </label>
-        <label>
-          Photo
-          <input type="text" name="photo" required defaultValue={vehicle?.photo} />
-        </label>
-        <section>
-          <button type="submit">Update car</button>
-          <button type="reset">Reset</button>
-        </section>
-      </form>
+        :
+        <form name="newCar" onSubmit={updateVehicle}>
+          <h2>
+            <button title="Remove car" className="danger" onClick={removeVehicle} type="button">
+              <span className="material-symbols-outlined"> delete </span>
+              remove
+            </button>
+            Edit Car
+          </h2>
+          <label>
+            Make
+            <input type="text" name="make" required defaultValue={vehicle?.make} />
+          </label>
+          <label>
+            Model
+            <input type="text" name="model" required defaultValue={vehicle?.model} />
+          </label>
+          <label>
+            Photo
+            <input type="text" name="photo" required defaultValue={vehicle?.photo} />
+          </label>
+          <section>
+            <button type="submit">Update car</button>
+            <button type="reset">Reset</button>
+          </section>
+        </form>
+      }
     </>
   );
 }

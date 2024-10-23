@@ -23,21 +23,33 @@ export default function CarDetail(): ReactNode {
   return (
     <>
       <Header><ReturnButton /></Header>
-      <article className="car-detail">
+      {vehicle === undefined ?
         <h2>
-          {vehicle?.make} {vehicle?.model}
-          <button title="Edit car details" onClick={() => navigate(`/car/${vehicle?.id}/edit`)}>
-            <span className="material-symbols-outlined"> edit </span>
-            edit
+          <button title="Go to main" onClick={() => navigate(`/`)}>
+            <span className="material-symbols-outlined"> home </span>
+            Go to main
           </button>
+          Car not found!
         </h2>
-        <figure><img src={vehicle?.photo} alt="Photo of car" /></figure>
-        <section>
-          <p>{vehicle?.odometer} km</p>
-          <p>{vehicle?.fuelConsumption} l / 10 km</p>
-        </section>
-      </article>
-      <FuelLog vehicleId={id as string} />
+        :
+        <>
+          <article className="car-detail">
+            <h2>
+              {vehicle?.make} {vehicle?.model}
+              <button title="Edit car details" onClick={() => navigate(`/car/${vehicle?.id}/edit`)}>
+                <span className="material-symbols-outlined"> edit </span>
+                edit
+              </button>
+            </h2>
+            <figure><img src={vehicle?.photo} alt="Photo of car" /></figure>
+            <section>
+              <p>{vehicle?.odometer} km</p>
+              <p>{vehicle?.fuelConsumption} l / 10 km</p>
+            </section>
+          </article>
+          <FuelLog vehicleId={id as string} />
+        </>
+      }
     </>
   );
 }

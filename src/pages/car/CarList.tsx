@@ -19,12 +19,18 @@ export default function CarList(): ReactNode {
     <>
       <Header />
       <h2><button title="Add a new car" onClick={() => navigate("/car/new")}>new</button>Cars</h2>
-      {
-        vehicles.map((vehicle) => {
-          return (
-            <CarListItem key={vehicle.id} vehicle={vehicle} />
-          )
-        })
+      {vehicles.length < 1 ?
+        <h3>You have no cars, press new to add</h3>
+        :
+        <>
+          {
+            vehicles.map((vehicle: Vehicle) => {
+              return (
+                <CarListItem key={vehicle.id} vehicle={vehicle} />
+              )
+            })
+          }
+        </>
       }
     </>
   );

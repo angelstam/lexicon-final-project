@@ -4,9 +4,12 @@ import ReturnButton from "../../shared/ReturnButton";
 import { useNavigate, useParams } from "react-router-dom";
 import { VehicleRefueling } from "../../shared/data/VehicleRefueling";
 import * as VehicleRefuelings from "../../shared/data/VehicleRefuelings";
+import { Vehicle } from "../../shared/data/Vehicle";
+import * as Vehicles from "../../shared/data/Vehicles";
 
 export default function FuelLogForm(): ReactNode {
   const [vehicleRefueling, setVehicleRefueling] = useState<VehicleRefueling>();
+  const [vehicle, setVehicle] = useState<Vehicle>();
 
   // Hook to handle navigation
   const navigate = useNavigate();
@@ -15,26 +18,29 @@ export default function FuelLogForm(): ReactNode {
   const { id, logId } = useParams();
 
   useEffect(() => {
+    setVehicle(Vehicles.getById(id as string));
     setVehicleRefueling(VehicleRefuelings.getById(logId as string));
   }, []);
 
   useEffect(() => {
-    // Set HTMLOptionElement.defaultSelected to make reset work.
-    Array.from(
-      (document.querySelector('form[name="vehicleRefueling"] select[name="fuelCostCurrency"]') as HTMLSelectElement)
-        .options).forEach(element => {
-          if (element.value === vehicleRefueling?.fuelCostCurrency) {
-            element.defaultSelected = true;
-          }
-        });
+    if (vehicleRefueling) {
+      // Set HTMLOptionElement.defaultSelected to make reset work.
+      Array.from(
+        (document.querySelector('form[name="vehicleRefueling"] select[name="fuelCostCurrency"]') as HTMLSelectElement)
+          .options).forEach(element => {
+            if (element.value === vehicleRefueling?.fuelCostCurrency) {
+              element.defaultSelected = true;
+            }
+          });
 
-    Array.from(
-      (document.querySelector('form[name="vehicleRefueling"] select[name="fuelType"]') as HTMLSelectElement)
-        .options).forEach(element => {
-          if (element.value === vehicleRefueling?.fuelType) {
-            element.defaultSelected = true;
-          }
-        });
+      Array.from(
+        (document.querySelector('form[name="vehicleRefueling"] select[name="fuelType"]') as HTMLSelectElement)
+          .options).forEach(element => {
+            if (element.value === vehicleRefueling?.fuelType) {
+              element.defaultSelected = true;
+            }
+          });
+    }
   }, [vehicleRefueling]);
 
   function updateVehicleRefueling(e: React.FormEvent<HTMLFormElement>) {
@@ -75,57 +81,67 @@ export default function FuelLogForm(): ReactNode {
   return (
     <>
       <Header><ReturnButton /></Header>
-      <form name="vehicleRefueling" onSubmit={updateVehicleRefueling}>
+      {vehicleRefueling === undefined && logId !== "new" || !vehicle && logId === "new" ?
         <h2>
-          {logId !== "new" ? (
-            <button title="Remove car" className="danger" onClick={removeVehicleRefueling} type="button">
-              <span className="material-symbols-outlined"> delete </span>
-              remove
-            </button>) : ""}
-          {logId === "new" ? "New" : "Edit"} Fuel Log
+          <button title="Go to main" onClick={() => navigate(`/`)}>
+            <span className="material-symbols-outlined"> home </span>
+            Go to main
+          </button>
+          Fuel Log Not Found!
         </h2>
-        <label>
-          Date
-          <input type="date" name="date" required defaultValue={vehicleRefueling?.date} />
-        </label>
-        <label>
-          Odometer (km)
-          <input type="text" name="odometer" required defaultValue={vehicleRefueling?.odometer} />
-        </label>
-        <div className="group">
+        :
+        <form name="vehicleRefueling" onSubmit={updateVehicleRefueling}>
+          <h2>
+            {logId !== "new" ? (
+              <button title="Remove car" className="danger" onClick={removeVehicleRefueling} type="button">
+                <span className="material-symbols-outlined"> delete </span>
+                remove
+              </button>) : ""}
+            {logId === "new" ? "New" : "Edit"} Fuel Log
+          </h2>
           <label>
-            Fuel Cost
-            <input type="text" name="fuelCost" required defaultValue={vehicleRefueling?.fuelCost} />
+            Date
+            <input type="date" name="date" required defaultValue={vehicleRefueling?.date} />
           </label>
           <label>
-            Currency
-            <select name="fuelCostCurrency" required>
-              <option value="USD">US Dolar (USD)</option>
-              <option value="SEK">Svenska kronor (SEK)</option>
-              <option value="EUR">Euro (EUR)</option>
-            </select>
+            Odometer (km)
+            <input type="text" name="odometer" required defaultValue={vehicleRefueling?.odometer} />
           </label>
-        </div>
-        <div className="group">
-          <label>
-            Fuel Type
-            <select name="fuelType" required>
-              <option value="95">95</option>
-              <option value="98">98</option>
-              <option value="E85">E85</option>
-              <option value="Diesel">Diesel</option>
-            </select>
-          </label>
-          <label>
-            Volume (liter)
-            <input type="text" name="fuelVolume" required defaultValue={vehicleRefueling?.fuelVolume} />
-          </label>
-        </div>
-        <section>
-          <button type="submit">{logId === "new" ? "Add to" : "Update"} log</button>
-          <button type="reset">Reset</button>
-        </section>
-      </form>
+          <div className="group">
+            <label>
+              Fuel Cost
+              <input type="text" name="fuelCost" required defaultValue={vehicleRefueling?.fuelCost} />
+            </label>
+            <label>
+              Currency
+              <select name="fuelCostCurrency" required>
+                <option value="USD">US Dolar (USD)</option>
+                <option value="SEK">Svenska kronor (SEK)</option>
+                <option value="EUR">Euro (EUR)</option>
+              </select>
+            </label>
+          </div>
+          <div className="group">
+            <label>
+              Fuel Type
+              <select name="fuelType" required>
+                <option value="95">95</option>
+                <option value="98">98</option>
+                <option value="E85">E85</option>
+                <option value="Diesel">Diesel</option>
+              </select>
+            </label>
+            <label>
+              Volume (liter)
+              <input type="text" name="fuelVolume" required defaultValue={vehicleRefueling?.fuelVolume} />
+            </label>
+          </div>
+          <section>
+            <button type="submit">{logId === "new" ? "Add to" : "Update"} log</button>
+            <button type="reset">Reset</button>
+          </section>
+        </form>
+      }
     </>
   );
 }
